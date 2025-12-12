@@ -5,6 +5,10 @@ import { createServer } from "http";
 import { config } from "dotenv";
 import { connectDB } from "./DB/connectDB";
 import { authRouter } from "./routes/authRouter";
+import { authMiddleware } from "./middleware/auth";
+import { helpRequestRouter } from "./routes/helpRouter";
+import { documentRouter } from "./routes/documentRouter";
+import { sessionRouter } from "./routes/sessionRouter";
 config({ path: "./.env" });
 
 const app = express();
@@ -29,6 +33,9 @@ app.use(cors(corsOption))
 
 
 app.use("/auth", authRouter);
+app.use("/help", authMiddleware, helpRequestRouter);
+app.use("/doc", authMiddleware, documentRouter);
+app.use("/session", authMiddleware, sessionRouter);
 app.get("/", async (req: Request, res: Response) => {
     res.status(200).json({ message: "Server is running!" })
 });

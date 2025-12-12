@@ -2,10 +2,13 @@ import type { Request, Response } from "express";
 import { HelpRequest } from "../models/help";
 import { v2 as cloudinary } from "cloudinary";
 import { Types } from "mongoose";
+import { User } from "../models/user";
 
 export const createHelpRequest = async (req: Request, res: Response) => {
     try {
-        const studentId = req.user?.id;
+        const email = req.user?.email;
+        const student = await User.findOne({ email });
+        const studentId = student?._id;
         if (!studentId) return res.status(401).json({ message: "Unauthorized" });
         const { subject, topic, description } = req.body;
         if (!subject || !topic)
@@ -32,6 +35,7 @@ export const createHelpRequest = async (req: Request, res: Response) => {
             topic,
             description,
             files: uploadedFiles,
+            requestClosedBy: ""
         });
         res.status(201).json({
             message: "Help request created successfully",
@@ -79,7 +83,7 @@ export const acceptHelpRequest = async (req: Request, res: Response) => {
         if (!request) return res.status(404).json({ message: "Help request not found" });
         if (request.status !== "open")
             return res.status(400).json({ message: "This request is already taken" });
-        request.assignedExplainerId = new Types.ObjectId(explainerId);
+        //request.assignedExplainerId = new Types.ObjectId(explainerId);
         request.status = "in_progress";
         await request.save();
         res.status(200).json({
