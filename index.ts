@@ -28,7 +28,7 @@ const corsOption: CorsOptions = {
             callback(new Error("CORS blocked origin " + origin));
         }
     },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use(cors(corsOption));
