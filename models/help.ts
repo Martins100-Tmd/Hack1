@@ -24,7 +24,7 @@ export interface IHelpRequest extends Document {
 const helpRequestSchema: Schema = new Schema({
     studentId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     // assignedExplainerId: { type: Schema.Types.ObjectId, ref: "User" },
-    requestClosedBy: { type: Schema.Types.ObjectId, ref: "User" },
+    requestClosedBy: { type: Schema.Types.ObjectId, ref: "User", default: null },
     subject: { type: String, required: true },
     topic: { type: String, required: true },
     description: String,

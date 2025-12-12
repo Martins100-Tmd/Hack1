@@ -35,7 +35,7 @@ export const createHelpRequest = async (req: Request, res: Response) => {
             topic,
             description,
             files: uploadedFiles,
-            requestClosedBy: ""
+            requestClosedBy: undefined
         });
         res.status(201).json({
             message: "Help request created successfully",
