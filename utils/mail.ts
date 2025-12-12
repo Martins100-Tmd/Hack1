@@ -10,7 +10,7 @@ if (!process.env.SENDGRID_API_KEY || !process.env.SENDGRID_FROM) {
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 export const sendMail = async (token: string, email: string) => {
-  const verifyUrl = `${process.env.BACKEND_URL ?? url}/verify?token=${token}`;
+  const verifyUrl = `${process.env.BACKEND_URL ?? url}/auth/verify?token=${token}`;
 
   const msg = {
     to: email,
