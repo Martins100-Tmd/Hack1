@@ -2,15 +2,15 @@ import dotenv from "dotenv";
 import sgMail from "@sendgrid/mail";
 
 dotenv.config({ path: "../.env" });
+const url = "https://hack1-gboq.onrender.com";
 
 if (!process.env.SENDGRID_API_KEY || !process.env.SENDGRID_FROM) {
   throw new Error("Missing SendGrid credentials in environment variables");
 }
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 export const sendMail = async (token: string, email: string) => {
-  const verifyUrl = `${process.env.BACKEND_URL}/verify?token=${token}`;
+  const verifyUrl = `${process.env.BACKEND_URL ?? url}/verify?token=${token}`;
 
   const msg = {
     to: email,
