@@ -54,10 +54,6 @@ export const verifyEmail = async (req: Request, res: Response) => {
         if (name && email) {
             res.redirect("google.com");
         }
-        res.status(201).json({
-            message: "Email verified successfully!",
-            data: { name, email }
-        });
     } catch (err) {
         console.log(err);
         res.status(400).json({ message: "Invalid or expired token" });
