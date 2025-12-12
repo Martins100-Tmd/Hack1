@@ -19,7 +19,7 @@ const httpServer = createServer(app);
 app.use(express.json({ limit: "500mb" }));
 
 // CORS
-const whiteList = ["http://localhost:3000", "https://martins100-tmd.github.io"];
+const whiteList = ["http://localhost:3000", "https://martins100-tmd.github.io", "http://localhost:5173"];
 const corsOption: CorsOptions = {
     origin(origin, callback) {
         if (!origin || whiteList.includes(origin)) {
