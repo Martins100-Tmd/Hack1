@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import sgMail from "@sendgrid/mail";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 if (!process.env.SENDGRID_API_KEY || !process.env.SENDGRID_FROM) {
   throw new Error("Missing SendGrid credentials in environment variables");
