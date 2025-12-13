@@ -13,4 +13,4 @@ authRouter.post("/create", createUser);
 authRouter.get("/users", getUsers);
 authRouter.get("/verify", verifyEmail);
 authRouter.post("/signin", signinUser);
-authRouter.patch("/update", updateProfile);
+authRouter.post("/update", updateProfile);

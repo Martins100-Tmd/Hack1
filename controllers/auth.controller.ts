@@ -86,10 +86,15 @@ export const signinUser = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response) => {
     try {
-        const userId = req.user?.id;
-        if (!userId) return res.status(401).json({ message: "Unauthorized" });
+        const token = req.headers.authorization?.split(" ")[1];
 
-        const { name, email, password } = req.body;
+        const decoded = jwt.verify(token ?? "", process.env.JWT_SECRET ?? "") as ;
+        if (!decoded) {
+            res.status(401).json({ message: "Invalid token" });
+        }
+        const userId = decoded.
+
+            const { name, email, password } = req.body;
         const updateData: any = {};
         if (name) updateData.name = name;
         if (email) {
