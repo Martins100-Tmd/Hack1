@@ -88,17 +88,16 @@ export const updateProfile = async (req: Request, res: Response) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
 
-        const decoded = jwt.verify(token ?? "", process.env.JWT_SECRET ?? "") as ;
+        const decoded = jwt.verify(token ?? "", process.env.JWT_SECRET ?? "") as { name: string, email: string, password: string };
         if (!decoded) {
             res.status(401).json({ message: "Invalid token" });
         }
-        const userId = decoded.
-
-            const { name, email, password } = req.body;
+        const { name, email, password } = decoded;
+        const userId = User.findOne({ email });
         const updateData: any = {};
         if (name) updateData.name = name;
         if (email) {
-            const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+            const existingUser = await User.findOne({ email });
             if (existingUser) return res.status(400).json({ message: "Email already in use" });
             updateData.email = email;
         }

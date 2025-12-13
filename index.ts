@@ -60,19 +60,17 @@ io.on("connection", (socket) => {
         if (to) io.to(to).emit("signal", { from: socket.id, data });
         else socket.to(roomId).emit("signal", { from: socket.id, data });
     });
-
-    socket.on("draw", ({ roomId, data }) => {
-        socket.to(roomId).emit("draw", data);
+    socket.on("draw", (payload) => {
+        socket.to(payload.roomId).emit("draw", payload);
     });
-
-    socket.on("clear-board", (roomId) => {
+    socket.on("clear-board", ({ roomId }) => {
         socket.to(roomId).emit("clear-board");
     });
-
     socket.on("disconnect", () => {
         console.log("disconnected:", socket.id);
     });
 });
+
 
 // SERVER START
 const PORT = process.env.PORT || 3000;
